@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9823770edb9f6346889d61eba7b8c77, type: 3}
+  m_Name: Pot
+  m_EditorClassIdentifier: 
+  image: {fileID: 21300000, guid: c20b25fab3cc7f34ca6617436f2d9879, type: 3}
+  nameEnemy: Pot
+  priceEnemy: 5
+  enemy: {fileID: 8466039676394374439, guid: 58bcfa432095a45438d32065fdc3ccd2, type: 3}

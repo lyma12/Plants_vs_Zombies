@@ -1,0 +1,8 @@
+Model Information:
+* title:	Maple Leaf
+* source:	https://sketchfab.com/3d-models/maple-leaf-de936ca451d94db58fa680d8a9928b49
+* author:	saurabh.buradkar7 (https://sketchfab.com/saurabh.buradkar7)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works
