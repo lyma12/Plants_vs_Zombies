@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Game\\Monster\\Plants vs Zombie\\WanzyeeStudio.Runtime.csproj": {}
+    "D:\\Game\\Plants_vs_Zombies\\WanzyeeStudio.Runtime.csproj": {}
   },
   "projects": {
-    "D:\\Game\\Monster\\Plants vs Zombie\\WanzyeeStudio.Runtime.csproj": {
+    "D:\\Game\\Plants_vs_Zombies\\WanzyeeStudio.Runtime.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Game\\Monster\\Plants vs Zombie\\WanzyeeStudio.Runtime.csproj",
+        "projectUniqueName": "D:\\Game\\Plants_vs_Zombies\\WanzyeeStudio.Runtime.csproj",
         "projectName": "WanzyeeStudio.Runtime",
-        "projectPath": "D:\\Game\\Monster\\Plants vs Zombie\\WanzyeeStudio.Runtime.csproj",
+        "projectPath": "D:\\Game\\Plants_vs_Zombies\\WanzyeeStudio.Runtime.csproj",
         "packagesPath": "C:\\Users\\linhl\\.nuget\\packages\\",
-        "outputPath": "D:\\Game\\Monster\\Plants vs Zombie\\Temp\\obj\\Debug\\WanzyeeStudio.Runtime\\",
+        "outputPath": "D:\\Game\\Plants_vs_Zombies\\Temp\\obj\\Debug\\WanzyeeStudio.Runtime\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\linhl\\AppData\\Roaming\\NuGet\\NuGet.Config",

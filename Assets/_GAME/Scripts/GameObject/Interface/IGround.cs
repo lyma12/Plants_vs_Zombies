@@ -1,7 +1,6 @@
 using System.Drawing;
 using UnityEngine;
-namespace MyNameSpace{
-    public interface IGround{
+public interface IGround{
     public bool CanPlant(Enemy plantGrid);
     public void OnDragOn();
     public void PlantEnemy(Enemy enemy);
@@ -14,6 +13,4 @@ namespace MyNameSpace{
     public Enemy GetEnemyPlantOn();
     public void OnChangeEnemy(Enemy enemy);
     public void OnRemoveEnemy();
-    internal void CheckPlantEnemy(Enemy enemy);
-}
 }

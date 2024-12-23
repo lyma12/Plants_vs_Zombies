@@ -14,19 +14,19 @@ public class BotSlot : Slot
 
     public override void TurnPass(Player playerType)
     {
-        if(player == playerType){
-            int size = GameStateManager.Instance.Size;
-            FakeGrid[,] broad = new FakeGrid[size, size];
-            for(int i = 0; i < size * size; i++){
-                int c = i % 3;
-                int r = i / 3;
-                broad[c, r] = new FakeGrid(GameStateManager.Instance.PlayerGrid[c, r]);
-            }
-            StateGame state = new StateGame(broad, (int)EnergyCoin, 10, GameStateManager.Instance.Size, playerType);
-            MoveType move = Minimax(state, 2, playerType, null).Item2;
-            move.MakeMove(GameStateManager.Instance.PlayerGrid, this);
-            Debug.Log($"Minimax value when bot is {player}: {move}");
-        }
+        // if(player == playerType){
+        //     int size = GameStateManager.Instance.Size;
+        //     FakeGrid[,] broad = new FakeGrid[size, size];
+        //     for(int i = 0; i < size * size; i++){
+        //         int c = i % 3;
+        //         int r = i / 3;
+        //         broad[c, r] = new FakeGrid(GameStateManager.Instance.PlayerGrid[c, r]);
+        //     }
+        //     StateGame state = new StateGame(broad, (int)EnergyCoin, 10, GameStateManager.Instance.Size, playerType);
+        //     MoveType move = Minimax(state, 2, playerType, null).Item2;
+        //     move.MakeMove(GameStateManager.Instance.PlayerGrid, this);
+        //     Debug.Log($"Minimax value when bot is {player}: {move}");
+        // }
     }
 
     private (int, MoveType) Minimax(StateGame state, int depth, Player checkPlayer, MoveType moveType){

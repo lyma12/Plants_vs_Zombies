@@ -112,7 +112,6 @@
     <Compile Include="Assets\Sketchfab For Unity\Scripts\SketchfabLogger.cs" />
     <Compile Include="Assets\_GAME\Scripts\Manager\Extends\Observer\IObserver.cs" />
     <Compile Include="Assets\_GAME\Scripts\GameObject\Interface\IGround.cs" />
-    <Compile Include="Assets\_GAME\Scripts\GameObject\Environment\FakeGrid.cs" />
     <Compile Include="Assets\_GAME\Scripts\GameObject\Interface\IPointerEventObserver.cs" />
     <Compile Include="Assets\_GAME\Scripts\Movement\StateGame.cs" />
     <Compile Include="Assets\_GAME\Scripts\GameObject\Enemy\Imp.cs" />
