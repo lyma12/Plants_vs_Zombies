@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class GameStateScreen : PointerEventSubject, IObserver, IUIObserver
+public class GameStateScreen : PointerEventSubject, IObserver
 {
     [Header("UI")]
     [SerializeField] private List<ListCard> listCards;
@@ -26,7 +26,7 @@ public class GameStateScreen : PointerEventSubject, IObserver, IUIObserver
             case GameType.PERSON_PERSON:
                 for (int i = 0; i < 2; i++)
                 {
-                    Slot playerSlot = new PlayerSlot((Player)i + 1, transformParentListCard, this, firstPlayer == (Player)i + 1, listCards[i]);
+                    Slot playerSlot = new PlayerSlot((Player)i + 1, parentCard, transformParentListCard, firstPlayer == (Player)i + 1, listCards[i]);
                     listPlayerSlot.Add(playerSlot);
                 }
                 break;
@@ -41,7 +41,7 @@ public class GameStateScreen : PointerEventSubject, IObserver, IUIObserver
                     }
                     else
                     {
-                        Slot playerSlot = new PlayerSlot((Player)i + 1, transformParentListCard, this, firstPlayer == (Player)i + 1, listCards[i]);
+                        Slot playerSlot = new PlayerSlot((Player)i + 1, parentCard, transformParentListCard, firstPlayer == (Player)i + 1, listCards[i]);
                         listPlayerSlot.Add(playerSlot);
                     }
                 }
@@ -79,17 +79,6 @@ public class GameStateScreen : PointerEventSubject, IObserver, IUIObserver
                     CloseDirectly();
                     break;
             }
-        }
-    }
-
-    public void UpdateNotifyUI(IUISubject uISubject)
-    {
-        if (uISubject is CardInShop)
-        {
-            CardInShop card = (CardInShop)uISubject;
-            Card newObject = SimplePool.Spawn<Card>(cardPrefab, card.gameObject.transform.position, Quaternion.identity);
-            newObject.Data = card.Data;
-            newObject.transform.SetParent(parentCard);
         }
     }
 }

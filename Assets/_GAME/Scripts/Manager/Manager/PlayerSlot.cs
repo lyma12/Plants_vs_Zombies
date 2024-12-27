@@ -4,10 +4,10 @@ using UnityEngine;
 public class PlayerSlot: Slot, IUISubject{
     private ListCard listCard;
     protected List<IUIObserver> uIObservers = new List<IUIObserver>();
-    public PlayerSlot(Player playerType, Transform parentUI, IUIObserver uIObserver, bool isFirstStep, ListCard listCardPrefab): base(playerType, isFirstStep){
+    public PlayerSlot(Player playerType, Transform parentCardSpawn, Transform parentUI, bool isFirstStep, ListCard listCardPrefab): base(playerType, isFirstStep){
         if(listCardPrefab == null) return;
         listCard = SimplePool.Spawn<ListCard>(listCardPrefab, parentUI.position, Quaternion.identity);
-        listCard.SetUp(uIObserver, playerType, parentUI, this);
+        listCard.SetUp(playerType, parentCardSpawn, parentUI, this);
         if(isFirstStep){
             listCard.Able();
         }

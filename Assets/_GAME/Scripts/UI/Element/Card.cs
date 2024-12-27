@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-public class Card : GameUnit, IDirection, IPointerDownHandler, IPointerUpHandler, IDragHandler
+public class Card : GameUnit, IDirection, IPointerDownHandler, IPointerUpHandler, IDragHandler, IPointerExitHandler
 {
     [SerializeField] private Image image;
     [SerializeField] private TMP_Text nameEnemy;
@@ -146,4 +146,9 @@ public class Card : GameUnit, IDirection, IPointerDownHandler, IPointerUpHandler
         SimplePool.Despawn(this);
     }
 
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if(isSelect) return;
+        SimplePool.Despawn(this);
+    }
 }

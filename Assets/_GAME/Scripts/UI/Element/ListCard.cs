@@ -15,13 +15,13 @@ public class ListCard : GameUnit, IUIObserver
         get{ return type;}
         set{ type = value;}
     }
-    public void SetUp(IUIObserver uIObserver, Player playerType, Transform parentUI, IUISubject slotController){
+    public void SetUp(Player playerType, Transform parentCardSpawn, Transform parentUI, IUISubject slotController){
         type = playerType;
         if(data == null) data = DataManager.Instance.GetEnemyData(type);
         foreach(EnemyData enemy in data){
             CardInShop cardInShop = SimplePool.Spawn<CardInShop>(cardInShopPrefab, transform.position, Quaternion.identity);
             cardInShop.Data = enemy;
-            cardInShop.AttachUI(uIObserver);
+            cardInShop.ParentCard = parentCardSpawn;
             cardInShop.transform.SetParent(scrollView, false);
             slotController.AttachUI(cardInShop);
             listCard.Add(cardInShop);
