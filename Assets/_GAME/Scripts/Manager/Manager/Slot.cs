@@ -13,10 +13,15 @@ public abstract class Slot{
             energy += energyCoin;
         }
     }
-    public Slot(Player playerType, bool isFirstStep, float initEnergy = 10){
+    public Slot(Player playerType, bool isFirstStep){
         player = playerType;
         this.isFirstStep = isFirstStep;
-        energy = initEnergy;
+        if(player == Player.PLANT_PLAYER){
+            energy = AppContanst.PLANT_INIT_COIN;
+        }
+        else{
+            energy = AppContanst.ZOMBIE_INIT_COIN;
+        }
     }
     public virtual void BuyEnemy(float energyCoin){
         energy -= energyCoin;

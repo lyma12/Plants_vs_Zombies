@@ -52,7 +52,6 @@ public class ListCard : GameUnit, IUIObserver
 
     public void UpdateNotifyUI(IUISubject uISubject)
     {
-        Debug.Log(uISubject);
         if(uISubject is Slot){
             coinText.text = $"{AppContanst.COIN}: {(uISubject as Slot).EnergyCoin}";
         }

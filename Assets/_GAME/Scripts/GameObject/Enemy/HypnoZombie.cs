@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using PlantsVsZombies.Enemy;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -16,7 +18,7 @@ public class HypnoZombie : HypnosisEnemy, IZombie
     {
         Hypnosis(plant, TypePlayer);
         Point movePoint = GroundPlant.GetColumnAndRow();
-        GameStateManager.Instance.MakeMove(movePoint);
+        GameStateManager.Instance.MakeMove(TypePlayer ,movePoint);
     }
 
     public void OnDelete()
@@ -120,7 +122,7 @@ public class HypnoZombie : HypnosisEnemy, IZombie
                 {
                     ground.OnChangeEnemy(this);
                     Point movePoint = GroundPlant.GetColumnAndRow();
-                    GameStateManager.Instance.MakeMove(movePoint);
+                    GameStateManager.Instance.MakeMove(TypePlayer ,movePoint);
                 }
                 else if (GameStateManager.Instance.PlayerGrid[ground.GetColumnAndRow().X, ground.GetColumnAndRow().Y].PlayerType() != TypePlayer)
                 {

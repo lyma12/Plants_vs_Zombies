@@ -90,6 +90,7 @@
     <Compile Include="Assets\_GAME\Scripts\GameObject\Enum\PointerEvent.cs" />
     <Compile Include="Assets\_GAME\Scripts\GameObject\Enum\GameState.cs" />
     <Compile Include="Assets\_GAME\Scripts\GameObject\Enum\Player.cs" />
+    <Compile Include="Assets\_GAME\Scripts\Exception\TurnPassException.cs" />
     <Compile Include="Assets\_GAME\Scripts\GameObject\Enemy\Weapon\Bullet\Bullet.cs" />
     <Compile Include="Assets\_GAME\Scripts\Manager\Extends\Cache.cs" />
     <Compile Include="Assets\_GAME\Scripts\Common\AppContanst.cs" />

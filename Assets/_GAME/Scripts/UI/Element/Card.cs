@@ -42,9 +42,25 @@ public class Card : GameUnit, IDirection, IPointerDownHandler, IPointerUpHandler
     private void ResetMaterialGrid()
     {
         groundSelect.ResetMeshMaterial();
-        groundSelect.PlantEnemy(data.Enemy);
-        GameStateManager.Instance.BuyEnemy(data.PriceEnemy);
-        GameStateManager.Instance.MakeMove(groundSelect.GetColumnAndRow());
+        try
+        {
+            groundSelect.PlantEnemy(data.Enemy);
+            GameStateManager.Instance.BuyEnemy(data.PriceEnemy);
+            Player typePlayer = data.Enemy.TypePlayer;
+            if(typePlayer == Player.NONE){
+                if(data.Enemy is Pot){
+                    typePlayer = Player.PLANT_PLAYER;
+                }
+                else{
+                    typePlayer = Player.ZOMBIE_PLAYER;
+                }
+            }
+            GameStateManager.Instance.MakeMove(typePlayer, groundSelect.GetColumnAndRow());
+        }
+        catch (TurnPassException ex)
+        {
+            Debug.Log(ex.Message);
+        }
     }
 
     public override void OnInit()
@@ -75,7 +91,9 @@ public class Card : GameUnit, IDirection, IPointerDownHandler, IPointerUpHandler
                 {
                     ShowDirection(null);
                 }
-            }else{
+            }
+            else
+            {
                 ShowDirection(null);
             }
         }

@@ -3,9 +3,18 @@ using UnityEngine.EventSystems;
 public class SunLight : Energy
 {
     private Player player = Player.PLANT_PLAYER;
+    public override Player PlayerType{
+        get{
+            return player;
+        }
+        set{
+            player = value;
+        }
+    }
+
     public override void OnInit()
     {
-
+        
     }
 
     public override void OnPointerDown(PointerEventData pointerEventData)
@@ -18,7 +27,6 @@ public class SunLight : Energy
         if (isSelect)
         {
             isSelect = false;
-            GameStateManager.Instance.AddEnergyForPlayer(player, energy);
             SimplePool.Despawn(this);
         }
     }

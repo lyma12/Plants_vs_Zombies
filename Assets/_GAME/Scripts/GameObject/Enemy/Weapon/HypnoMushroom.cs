@@ -1,15 +1,16 @@
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using PlantsVsZombies.Enemy;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class HypnoMushroom : HypnosisEnemy, IPlant, IMoveWithDirection
 {
     private List<IGround> gridOnLight = new List<IGround>();
-    private bool isSelect = false;
     public void AttackZombie()
     {
-        
+
     }
 
     public bool CanMoveWithDirection(IGround ground)
@@ -51,33 +52,31 @@ public class HypnoMushroom : HypnosisEnemy, IPlant, IMoveWithDirection
 
     public override void OnBeAttack()
     {
-        
+
     }
 
     public override void OnDespawn()
     {
-        
+
     }
 
     public void OnDrag(PointerEventData pointerEventData)
     {
-        
+
     }
 
     public override void OnInit()
     {
-        
+        base.OnInit();
     }
 
     public override void OnPointerDown(PointerEventData pointerEventData)
     {
         ShowDirection(GroundPlant);
-        isSelect = true;
     }
 
     public override void OnPointerUp(PointerEventData pointerEventData)
     {
-        isSelect = false;
         Ray ray = Camera.main.ScreenPointToRay(pointerEventData.position);
         if (Physics.Raycast(ray, out RaycastHit hitData, 100, layerMaskGround))
         {
@@ -88,12 +87,17 @@ public class HypnoMushroom : HypnosisEnemy, IPlant, IMoveWithDirection
                 {
                     transform.position = GroundPlant.GetCenterPoint().position;
                     Enemy enemy = ground.GetEnemyPlantOn();
-                    if(enemy is Zombie){
-                        Hypnosis(enemy, Player.PLANT_PLAYER);
-                        Point point = GroundPlant.GetColumnAndRow();
-                        GameStateManager.Instance.MakeMove(point);
-                        GroundPlant.OnRemoveEnemy();
-                    }
+                    try
+                        {
+                            Hypnosis(enemy, TypePlayer);
+                            Point point = GroundPlant.GetColumnAndRow();
+                            GroundPlant.OnRemoveEnemy();
+                            GameStateManager.Instance.MakeMove(TypePlayer, point);
+                        }
+                        catch (TurnPassException ex)
+                        {
+                            Debug.Log(ex.Message);
+                        }
                 }
             }
             else

@@ -1,11 +1,11 @@
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
+using PlantsVsZombies.Enemy;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Zombie : Enemy, IZombie
+public class Zombie : EnemyAdddEnergy, IZombie
 {
     private bool isSelect = false;
     private List<IGround> gridOnLight = new List<IGround>();
@@ -18,12 +18,23 @@ public class Zombie : Enemy, IZombie
     }
     public virtual async void Eat(Enemy plant, IGround ground)
     {
-        OnChangeAnimation(AppContanst.ANIMATION_EAT);
-        await Task.Delay(AppContanst.TIME_ANIMATION_EAT);
-        plant.OnBeAttack();
-        ground.OnChangeEnemy(this);
-        Point movePoint = GroundPlant.GetColumnAndRow();
-        GameStateManager.Instance.MakeMove(movePoint);
+        try
+        {
+            plant.OnBeAttack();
+            ground.OnChangeEnemy(this);
+            Point movePoint = GroundPlant.GetColumnAndRow();
+            GameStateManager.Instance.MakeMove(TypePlayer, movePoint);
+            OnChangeAnimation(AppContanst.ANIMATION_EAT);
+            await Task.Delay(AppContanst.TIME_ANIMATION_EAT);
+            OnChangeAnimation(AppContanst.ANIMATION_IDLE);
+            if(plant is IPlant){
+                AddEnergy();
+            }
+        }
+        catch (TurnPassException ex)
+        {
+            Debug.Log(ex.Message);
+        }
     }
 
     public void OnDelete()
@@ -127,9 +138,16 @@ public class Zombie : Enemy, IZombie
             {
                 if (ground.CanPlant(this))
                 {
-                    ground.OnChangeEnemy(this);
-                    Point movePoint = GroundPlant.GetColumnAndRow();
-                    GameStateManager.Instance.MakeMove(movePoint);
+                    try
+                    {
+                        ground.OnChangeEnemy(this);
+                        Point movePoint = GroundPlant.GetColumnAndRow();
+                        GameStateManager.Instance.MakeMove(TypePlayer, movePoint);
+                    }
+                    catch (TurnPassException ex)
+                    {
+                        Debug.LogError(ex.Message);
+                    }
                 }
                 else if (GameStateManager.Instance.PlayerGrid[ground.GetColumnAndRow().X, ground.GetColumnAndRow().Y].PlayerType() != TypePlayer)
                 {
@@ -193,5 +211,10 @@ public class Zombie : Enemy, IZombie
             moves.Add(move);
         }
         return moves;
+    }
+
+    public override int EnergyOneTurn()
+    {
+        return energyNumber;
     }
 }
