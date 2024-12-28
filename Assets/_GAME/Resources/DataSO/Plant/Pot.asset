@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 21300000, guid: c20b25fab3cc7f34ca6617436f2d9879, type: 3}
   nameEnemy: Pot
-  priceEnemy: 5
+  priceEnemy: 2
   enemy: {fileID: 8466039676394374439, guid: 58bcfa432095a45438d32065fdc3ccd2, type: 3}

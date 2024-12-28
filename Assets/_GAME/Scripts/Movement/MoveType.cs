@@ -1,4 +1,5 @@
 using System.Drawing;
+using PlantsVsZombies.Enemy;
 
 public abstract class MoveType{
     protected Point dir;
@@ -53,7 +54,7 @@ public class MoveAddEnemy: MoveType{
     {
         broad[dir.X, dir.Y].PlantEnemy(enemy);
         slot.BuyEnemy(priceBuy);
-        GameStateManager.Instance.MakeMove(dir);
+        GameStateManager.Instance.MakeMove(slot.PlayerType, dir);
     }
 }
 
@@ -79,6 +80,6 @@ public class MoveChangeEnemy: MoveType{
     {
         broad[start.X, start.Y].OnRemoveEnemy();
         broad[dir.X, dir.Y].OnChangeEnemy(enemy);
-        GameStateManager.Instance.MakeMove(dir);
+        GameStateManager.Instance.MakeMove(slot.PlayerType, dir);
     }
 }

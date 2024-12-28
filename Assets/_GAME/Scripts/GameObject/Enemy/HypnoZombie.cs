@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using PlantsVsZombies.Enemy;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -16,7 +18,7 @@ public class HypnoZombie : HypnosisEnemy, IZombie
     {
         Hypnosis(plant, TypePlayer);
         Point movePoint = GroundPlant.GetColumnAndRow();
-        GameStateManager.Instance.MakeMove(movePoint);
+        GameStateManager.Instance.MakeMove(TypePlayer ,movePoint);
     }
 
     public void OnDelete()
@@ -120,7 +122,7 @@ public class HypnoZombie : HypnosisEnemy, IZombie
                 {
                     ground.OnChangeEnemy(this);
                     Point movePoint = GroundPlant.GetColumnAndRow();
-                    GameStateManager.Instance.MakeMove(movePoint);
+                    GameStateManager.Instance.MakeMove(TypePlayer ,movePoint);
                 }
                 else if (GameStateManager.Instance.PlayerGrid[ground.GetColumnAndRow().X, ground.GetColumnAndRow().Y].PlayerType() != TypePlayer)
                 {
@@ -184,5 +186,29 @@ public class HypnoZombie : HypnosisEnemy, IZombie
             moves.Add(move);
         }
         return moves;
+    }
+
+    public bool CanMoveOnThisTurnPass()
+    {
+        foreach (Direction i in GridMove)
+        {
+            Vector2Int direction = Common.Direction[(int)i];
+            Point position = GroundPlant.GetColumnAndRow();
+            Point point = new Point(position.X + direction.x, position.Y + direction.y);
+            if (point.X < 0 || point.Y < 0 || point.X >= GameStateManager.Instance.Size || point.Y >= GameStateManager.Instance.Size)
+            {
+                continue;
+            }
+            else{
+                Grid1x1 ground = GameStateManager.Instance.PlayerGrid[position.X, position.Y];
+                if(ground.CanPlant(this)){
+                    return true;
+                }
+                if(ground.PlayerType() != TypePlayer || (ground.GetEnemyPlantOn() != null && ground.GetEnemyPlantOn() is Pot)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

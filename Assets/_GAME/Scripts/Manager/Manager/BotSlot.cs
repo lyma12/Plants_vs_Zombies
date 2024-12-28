@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using PlantsVsZombies.Enemy;
 using UnityEngine;
 public class BotSlot : Slot
 {

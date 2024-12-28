@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using PlantsVsZombies.Enemy;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -27,6 +27,7 @@ class Cache : Singleton<Cache>
          newGrid1x1 = otherGrid.GetComponent<Pot>();
       }
       dictionaryGrid1x1.Add(otherGrid, newGrid1x1);
+      if(newGrid1x1 == null) throw new NullableException(AppContanst.NULLABLE_OBJECT);
       return newGrid1x1;
    }
    public GameUnitListenerPointerEvent GetGameUnitListenerPointerEvent(GameObject other){

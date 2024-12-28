@@ -67,8 +67,8 @@ public class GameStateManager : Singleton<GameStateManager>, ISubject, ISubjectM
         int isNum = playerGrid[r, c].PlayerType() == currentPlayer ? 1 : 0;
         int row = CountSymbolWithDirection(Vector2Int.left, r - 1, c) + CountSymbolWithDirection(Vector2Int.right, r + 1, c) + isNum;
         int column = CountSymbolWithDirection(Vector2Int.down, r, c - 1) + CountSymbolWithDirection(Vector2Int.up, r, c + 1) + isNum;
-        int primaryDiagonal = CountSymbolWithDirection(new Vector2Int( -1, 1), r - 1, c + 1) + CountSymbolWithDirection(new Vector2Int(1, 1), r + 1, c + 1) + isNum;
-        int secondDiagonal = CountSymbolWithDirection(new Vector2Int(-1, -1), r - 1 , c - 1) + CountSymbolWithDirection(new Vector2Int(-1, 1), r -1 , c + 1) + isNum;
+        int primaryDiagonal = CountSymbolWithDirection(new Vector2Int( 1, -1), r + 1, c - 1) + CountSymbolWithDirection(new Vector2Int(-1, 1), r - 1, c + 1) + isNum;
+        int secondDiagonal = CountSymbolWithDirection(new Vector2Int(-1, -1), r - 1 , c - 1) + CountSymbolWithDirection(new Vector2Int(1, 1), r + 1 , c + 1) + isNum;
         int size = broad.Size;
         return size <= row || size <= column || size <= primaryDiagonal || size <= secondDiagonal;
     }
@@ -78,14 +78,18 @@ public class GameStateManager : Singleton<GameStateManager>, ISubject, ISubjectM
         return 1 + CountSymbolWithDirection(direction, r + direction.x, c + direction.y);
     }
 
-    public void GameOver(int r, int c)
+    public void GameOver()
     {
-        if (GameWin(r, c))
-        {
-            winner = playerGrid[r, c].PlayerType();
-            ControlManager.Instance.State = GameState.GAMEOVER;
+        winner = currentPlayer == Player.PLANT_PLAYER ? Player.ZOMBIE_PLAYER : Player.PLANT_PLAYER;
+        ControlManager.Instance.State = GameState.GAMEOVER;
+    }
+    public bool IsGameOver(){
+        foreach(Slot slot in slots){
+            if(slot.PlayerType == currentPlayer){
+                return !slot.CanMoveNext(playerGrid);
+            }
         }
-        return;
+        return false;
     }
 
     public void Attach(IObserver observer)
@@ -101,15 +105,21 @@ public class GameStateManager : Singleton<GameStateManager>, ISubject, ISubjectM
             observers.Remove(observer);
         }
     }
-    public void MakeMove(Point point)
+    public void MakeMove(Player playerType, Point point)
     {
-
+        if(playerType != currentPlayer){
+            throw new TurnPassException(AppContanst.WRONG_TURN_PASS);
+        }
         if (GameWin(point.X, point.Y))
         {
+            winner = playerType;
             ControlManager.Instance.State = GameState.GAMEOVER;
             return;
         }
         ChangeTurnPass();
+        if(IsGameOver()){
+            GameOver();
+        }
     }
 
     public void Notify()

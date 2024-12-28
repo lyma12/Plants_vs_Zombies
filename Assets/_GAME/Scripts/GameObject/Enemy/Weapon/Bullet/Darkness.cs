@@ -3,6 +3,14 @@ using UnityEngine.EventSystems;
 public class Darkness : Energy
 {
     private Player player = Player.ZOMBIE_PLAYER;
+    public override Player PlayerType{
+        get{
+            return player;
+        }
+        set{
+            player = value;
+        }
+    }
     public override void OnInit()
     {
         
@@ -17,7 +25,6 @@ public class Darkness : Energy
     {
         if(isSelect){
             isSelect = false;
-            GameStateManager.Instance.AddEnergyForPlayer(player, energy);
             SimplePool.Despawn(this);
         }
     }

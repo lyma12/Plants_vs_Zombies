@@ -86,10 +86,12 @@
     <Compile Include="Assets\_GAME\Scripts\Movement\MoveType.cs" />
     <Compile Include="Assets\_GAME\Scripts\GameObject\Interface\IUISubject.cs" />
     <Compile Include="Assets\Sketchfab For Unity\Scripts\SketchfabUI.cs" />
+    <Compile Include="Assets\_GAME\Scripts\Exception\NullableException.cs" />
     <Compile Include="Assets\_GAME\Scripts\Data\ListEnemyData.cs" />
     <Compile Include="Assets\_GAME\Scripts\GameObject\Enum\PointerEvent.cs" />
     <Compile Include="Assets\_GAME\Scripts\GameObject\Enum\GameState.cs" />
     <Compile Include="Assets\_GAME\Scripts\GameObject\Enum\Player.cs" />
+    <Compile Include="Assets\_GAME\Scripts\Exception\TurnPassException.cs" />
     <Compile Include="Assets\_GAME\Scripts\GameObject\Enemy\Weapon\Bullet\Bullet.cs" />
     <Compile Include="Assets\_GAME\Scripts\Manager\Extends\Cache.cs" />
     <Compile Include="Assets\_GAME\Scripts\Common\AppContanst.cs" />

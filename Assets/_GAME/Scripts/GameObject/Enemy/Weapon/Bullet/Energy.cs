@@ -5,6 +5,7 @@ public abstract class Energy : GameUnitListenerPointerEvent
     [SerializeField] private Rigidbody rb;
     protected bool isSelect = false;
     protected int energy = 0;
+    public virtual Player PlayerType {get; set;}
     public void Setup(int energy){
         this.energy = energy;
         rb.AddForce(Vector3.up * AppContanst.FORCE_ENERGY);
@@ -16,6 +17,7 @@ public abstract class Energy : GameUnitListenerPointerEvent
     }
     public override void OnDespawn()
     {
+        GameStateManager.Instance.AddEnergyForPlayer(PlayerType, energy);
         isSelect = false;
         energy = 0;
     }

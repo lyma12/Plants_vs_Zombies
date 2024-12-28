@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 21300000, guid: cb6c540bdf28ca7499e5255de64504e5, type: 3}
   nameEnemy: SunFlower
-  priceEnemy: 2
+  priceEnemy: 3
   enemy: {fileID: 6342563127628308370, guid: f7418c1cf2f4b42409da0a705b99a9a5, type: 3}

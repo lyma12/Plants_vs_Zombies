@@ -1,4 +1,6 @@
 
+using PlantsVsZombies.Enemy;
+
 public interface IPlantGrid
 {
     public void OnDelete();

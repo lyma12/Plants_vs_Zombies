@@ -3,17 +3,18 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-public class CardInShop : GameUnit, IPointerDownHandler, IUISubject, IUIObserver
+public class CardInShop : GameUnit, IPointerDownHandler, IUIObserver
 {
     [SerializeField] private Image image;
     [SerializeField] private TMP_Text nameCard;
     [SerializeField] private TMP_Text priceCard;
     [SerializeField] private GameObject canBuyUI;
-
-    private List<IUIObserver> observers = new List<IUIObserver>();
+    [SerializeField] private Card cardPrefab;
+    private Transform parentCard;
     private EnemyData data;
     private bool isEnable = true;
     private bool canBuy = false;
+    public Transform ParentCard{set{ parentCard = value;}}
     public bool CanBuy{
         get{
             return canBuy;
@@ -43,26 +44,6 @@ public class CardInShop : GameUnit, IPointerDownHandler, IUISubject, IUIObserver
         }
     }
 
-    public void AttachUI(IUIObserver uIObserver)
-    {
-        if(observers.Contains(uIObserver)) return;
-        observers.Add(uIObserver);
-    }
-
-    public void DetachUI(IUIObserver uIObserver)
-    {
-        if(observers.Contains(uIObserver)){
-            observers.Remove(uIObserver);
-        }
-    }
-
-    public void NotifyUI()
-    {
-        foreach(IUIObserver observer in observers){
-            observer.UpdateNotifyUI(this);
-        }
-    }
-
     public override void OnDespawn()
     {
         
@@ -76,7 +57,9 @@ public class CardInShop : GameUnit, IPointerDownHandler, IUISubject, IUIObserver
     public void OnPointerDown(PointerEventData eventData)
     {
         if(!isEnable || !canBuy) return;
-        NotifyUI();
+        Card card = SimplePool.Spawn<Card>(cardPrefab, transform.position, Quaternion.identity);
+        card.Data = Data;
+        card.transform.SetParent(parentCard);
     }
 
     public void UpdateNotifyUI(IUISubject uISubject)
