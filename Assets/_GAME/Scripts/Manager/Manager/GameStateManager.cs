@@ -78,14 +78,18 @@ public class GameStateManager : Singleton<GameStateManager>, ISubject, ISubjectM
         return 1 + CountSymbolWithDirection(direction, r + direction.x, c + direction.y);
     }
 
-    public void GameOver(int r, int c)
+    public void GameOver()
     {
-        if (GameWin(r, c))
-        {
-            winner = playerGrid[r, c].PlayerType();
-            ControlManager.Instance.State = GameState.GAMEOVER;
+        winner = currentPlayer == Player.PLANT_PLAYER ? Player.ZOMBIE_PLAYER : Player.PLANT_PLAYER;
+        ControlManager.Instance.State = GameState.GAMEOVER;
+    }
+    public bool IsGameOver(){
+        foreach(Slot slot in slots){
+            if(slot.PlayerType == currentPlayer){
+                return !slot.CanMoveNext(playerGrid);
+            }
         }
-        return;
+        return false;
     }
 
     public void Attach(IObserver observer)
@@ -108,10 +112,14 @@ public class GameStateManager : Singleton<GameStateManager>, ISubject, ISubjectM
         }
         if (GameWin(point.X, point.Y))
         {
+            winner = playerType;
             ControlManager.Instance.State = GameState.GAMEOVER;
             return;
         }
         ChangeTurnPass();
+        if(IsGameOver()){
+            GameOver();
+        }
     }
 
     public void Notify()

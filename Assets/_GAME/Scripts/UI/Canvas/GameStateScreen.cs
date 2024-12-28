@@ -7,7 +7,6 @@ public class GameStateScreen : PointerEventSubject, IObserver
     [Header("UI")]
     [SerializeField] private List<ListCard> listCards;
     [SerializeField] private Transform transformParentListCard;
-    [SerializeField] private Card cardPrefab;
     [SerializeField] private Transform parentCard;
 
     protected override void Awake()

@@ -47,11 +47,14 @@ public class Card : GameUnit, IDirection, IPointerDownHandler, IPointerUpHandler
             groundSelect.PlantEnemy(data.Enemy);
             GameStateManager.Instance.BuyEnemy(data.PriceEnemy);
             Player typePlayer = data.Enemy.TypePlayer;
-            if(typePlayer == Player.NONE){
-                if(data.Enemy is Pot){
+            if (typePlayer == Player.NONE)
+            {
+                if (data.Enemy is Pot)
+                {
                     typePlayer = Player.PLANT_PLAYER;
                 }
-                else{
+                else
+                {
                     typePlayer = Player.ZOMBIE_PLAYER;
                 }
             }
@@ -128,27 +131,39 @@ public class Card : GameUnit, IDirection, IPointerDownHandler, IPointerUpHandler
         if (!isSelect) return;
         isSelect = false;
         Ray ray = Camera.main.ScreenPointToRay(pointerEventData.position);
-        if (Physics.Raycast(ray, out RaycastHit hitData, 100, groundLayerMask))
+        try
         {
-            IGround gridOnDrag = Cache.Instance.GetIGround(hitData.collider.gameObject);
-            if (gridOnDrag.CanPlant(data.Enemy))
+            if (Physics.Raycast(ray, out RaycastHit hitData, 100, groundLayerMask))
             {
-                gridOnDrag.OnSelect();
-                groundSelect = gridOnDrag;
-                foreach (IGround ground in gridOnLight)
+                IGround gridOnDrag = Cache.Instance.GetIGround(hitData.collider.gameObject);
+                if (gridOnDrag.CanPlant(data.Enemy))
                 {
-                    ground.ResetMeshMaterial();
+                    gridOnDrag.OnSelect();
+                    groundSelect = gridOnDrag;
+                    foreach (IGround ground in gridOnLight)
+                    {
+                        ground.ResetMeshMaterial();
+                    }
+                    gridOnLight.Clear();
+                    Invoke(nameof(ResetMaterialGrid), 0.5f);
                 }
-                gridOnLight.Clear();
-                Invoke(nameof(ResetMaterialGrid), 0.5f);
             }
+            SimplePool.Despawn(this);
         }
-        SimplePool.Despawn(this);
+        catch (NullableException ex)
+        {
+            Debug.Log(ex.Message);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if(isSelect) return;
+        if (isSelect) return;
         SimplePool.Despawn(this);
+    }
+
+    public bool CanMoveOnThisTurnPass()
+    {
+        return true;
     }
 }

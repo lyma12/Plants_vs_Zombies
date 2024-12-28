@@ -16,6 +16,7 @@ public class AppContanst{
     public static string ANIMATION_EAT = "eat";
     /// Exception
     public static string WRONG_TURN_PASS = "Wait for other player turn";
+    public static string NULLABLE_OBJECT = "Object is null";
     // InitValue
     public static int PLANT_INIT_COIN = 10;
     public static int ZOMBIE_INIT_COIN = 25;

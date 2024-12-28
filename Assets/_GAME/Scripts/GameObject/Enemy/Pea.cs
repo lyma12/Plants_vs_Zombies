@@ -89,4 +89,25 @@ public class Pea : Enemy, IPlant, IDirection
         }
         base.UpdateNotify(subject);
     }
+
+    public bool CanMoveOnThisTurnPass()
+    {
+        foreach (Direction i in GridMove)
+        {
+            Vector2Int direction = Common.Direction[(int)i];
+            Point position = GroundPlant.GetColumnAndRow();
+            Point point = new Point(position.X + direction.x, position.Y + direction.y);
+            if (point.X < 0 || point.Y < 0 || point.X >= GameStateManager.Instance.Size || point.Y >= GameStateManager.Instance.Size)
+            {
+                continue;
+            }
+            else{
+                Grid1x1 ground = GameStateManager.Instance.PlayerGrid[position.X, position.Y];
+                if(ground.PlayerType() != TypePlayer){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
